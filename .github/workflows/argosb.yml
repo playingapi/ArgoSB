@@ -1,0 +1,42 @@
+name: ArgosB
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install Dependencies
+        run: |
+          sudo apt update -y
+          sudo apt install -y curl wget tar gzip jq
+
+      - name: Run ArgoSB Script
+        run: |
+          chmod +x argosb_action.sh
+          sudo ./argosb_action.sh
+
+      - name: Save Node Configuration
+        run: |
+          cp /etc/s-box-ag/list.txt . || echo "Error: list.txt not found"
+          cp /etc/s-box-ag/jh.txt . || echo "Error: jh.txt not found"
+          ls -l
+
+      - name: Upload Node Configuration
+        uses: actions/upload-artifact@v4
+        with:
+          name: node-config
+          path: |
+            list.txt
+            jh.txt
+          if-no-files-found: warn
+
+      - name: Keep Runner Alive
+        run: |
+          echo "Sleeping for 6 hours to keep the tunnel active..."
+          sleep 21600
