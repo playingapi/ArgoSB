@@ -7,7 +7,7 @@ echo "ArgoSB真一键无交互脚本"
 echo "当前版本：25.4.28 测试beta5版"
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 export LANG=en_US.UTF-8
-[[ $EUID -ne 0 ]] && yellow "请以root模式运行脚本" && exit
+[[ $EUID -ne 0 ]] && echo "请以root模式运行脚本" && exit
 if [[ -f /etc/redhat-release ]]; then
 release="Centos"
 elif cat /etc/issue | grep -q -E -i "alpine"; then
@@ -25,17 +25,17 @@ release="Ubuntu"
 elif cat /proc/version | grep -q -E -i "centos|red hat|redhat"; then
 release="Centos"
 else 
-red "脚本不支持当前的系统，请选择使用Ubuntu,Debian,Centos系统。" && exit
+echo "脚本不支持当前的系统，请选择使用Ubuntu,Debian,Centos系统。" && exit
 fi
 op=$(cat /etc/redhat-release 2>/dev/null || cat /etc/os-release 2>/dev/null | grep -i pretty_name | cut -d \" -f2)
 if [[ $(echo "$op" | grep -i -E "arch") ]]; then
-red "脚本不支持当前的 $op 系统，请选择使用Ubuntu,Debian,Centos系统。" && exit
+echo "脚本不支持当前的 $op 系统，请选择使用Ubuntu,Debian,Centos系统。" && exit
 fi
 [[ -z $(systemd-detect-virt 2>/dev/null) ]] && vi=$(virt-what 2>/dev/null) || vi=$(systemd-detect-virt 2>/dev/null)
 case $(uname -m) in
 aarch64) cpu=arm64;;
 x86_64) cpu=amd64;;
-*) red "目前脚本不支持$(uname -m)架构" && exit;;
+*) echo "目前脚本不支持$(uname -m)架构" && exit;;
 esac
 hostname=$(hostname)
 export UUID=${uuid:-''}
