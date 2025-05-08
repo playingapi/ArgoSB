@@ -45,6 +45,8 @@ uuid=你的uuid vmpt=vps可使用的端口 bash <(wget -qO- https://raw.githubus
 vmpt=VPS可使用的端口 agn=固定域名 agk=ey开头的token bash <(wget -qO- https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
 ```
 
+#### 注：如果服务器支持任意端口，临时隧道端口变量(vmpt)可以不用设置，因为Argo节点用不到主协议vmess的端口
+
 ----------------------------------------------------------
 
 #### 相关教程可参考[甬哥博客](https://ygkkk.blogspot.com/2025/04/clawcloud.html)，视频教程如下：

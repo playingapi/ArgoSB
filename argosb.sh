@@ -46,15 +46,6 @@ export ARGO_AUTH=${agk:-''}
 del(){
 kill -15 $(cat /etc/s-box-ag/sbargopid.log 2>/dev/null) >/dev/null 2>&1
 kill -15 $(cat /etc/s-box-ag/sbpid.log 2>/dev/null) >/dev/null 2>&1
-if [[ x"${release}" == x"alpine" ]]; then
-rc-service sing-box stop
-rc-update del sing-box default
-rm /etc/init.d/sing-box -f
-else
-systemctl stop sing-box >/dev/null 2>&1
-systemctl disable sing-box >/dev/null 2>&1
-rm -f /etc/systemd/system/sing-box.service
-fi
 crontab -l > /tmp/crontab.tmp
 sed -i '/sbargopid/d' /tmp/crontab.tmp
 sed -i '/sbpid/d' /tmp/crontab.tmp
@@ -86,13 +77,12 @@ if [ -z $argodomain ]; then
 echo "当前argo临时域名未生成，请先将脚本卸载(agsb del)，再重新安装ArgoSB脚本" 
 else
 echo "当前argo最新临时域名：$argodomain"
-cat /etc/s-box-ag/list.txt
 fi
 else
 echo "当前argo固定域名：$argoname"
 echo "当前argo固定域名token：$(cat /etc/s-box-ag/sbargotoken.log 2>/dev/null)"
-cat /etc/s-box-ag/list.txt
 fi
+cat /etc/s-box-ag/list.txt
 exit
 elif [[ -z $(ps -e | grep sing-box) ]] && [[ -z $(ps -e | grep cloudflared) ]]; then
 echo "VPS系统：$op"
@@ -112,9 +102,6 @@ yum install -y curl wget jq tar
 elif command -v apk &> /dev/null; then
 apk update -y
 apk add wget curl tar jq tzdata openssl git grep dcron
-else
-echo "不支持当前系统，请手动安装依赖。"
-exit
 fi
 
 warpcheck(){
@@ -279,9 +266,12 @@ line1=$(sed -n '1p' /etc/s-box-ag/jh.txt)
 line6=$(sed -n '6p' /etc/s-box-ag/jh.txt)
 line7=$(sed -n '7p' /etc/s-box-ag/jh.txt)
 line13=$(sed -n '13p' /etc/s-box-ag/jh.txt)
+vmport=${port_vm_ws}
 echo "ArgoSB脚本安装完毕" && sleep 2
 cat > /etc/s-box-ag/list.txt <<EOF
 ---------------------------------------------------------
+---------------------------------------------------------
+Vmess主协议端口(Argo固定隧道端口)：$vmport
 ---------------------------------------------------------
 单节点配置输出：
 1、443端口的vmess-ws-tls-argo节点，默认优选IPV4：104.16.0.0
@@ -302,6 +292,7 @@ $line13
 
 $baseurl
 
+---------------------------------------------------------
 相关快捷方式如下：
 显示域名及节点信息：agsb
 升级脚本：agsb up
