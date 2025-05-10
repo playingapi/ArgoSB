@@ -40,12 +40,12 @@ nix=y bash <(wget -qO- https://raw.githubusercontent.com/yonggekkk/argosb/main/a
 
 主流VPS脚本：
 ```
-uuid=你的uuid vmpt=vps可使用的端口 bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
+uuid=你的uuid vmpt=可使用的端口 bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
 ```
 
 容器NIX脚本：
 ```
-nix=y uuid=你的uuid vmpt=vps可使用的端口 bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
+nix=y uuid=你的uuid vmpt=可使用的端口 bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
 ```
 
 #### 2、Argo固定隧道：
@@ -53,12 +53,12 @@ nix=y uuid=你的uuid vmpt=vps可使用的端口 bash <(curl -Ls https://raw.git
 
 主流VPS脚本：
 ```
-uuid=你的uuid vmpt=VPS可使用的端口 agn=固定域名 agk=ey开头的token bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
+uuid=你的uuid vmpt=可使用的端口 agn=固定域名 agk=ey开头的token bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
 ```
 
 容器NIX脚本：
 ```
-nix=y uuid=你的uuid vmpt=VPS可使用的端口 agn=固定域名 agk=ey开头的token bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
+nix=y uuid=你的uuid vmpt=可使用的端口 agn=固定域名 agk=ey开头的token bash <(curl -Ls https://raw.githubusercontent.com/yonggekkk/argosb/main/argosb.sh)
 ```
 
 
