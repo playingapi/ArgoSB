@@ -101,7 +101,7 @@ echo "CPU架构：$cpu"
 echo "ArgoSB脚本未安装，开始安装…………" && sleep 3
 echo
 else
-echo "ArgoSB脚本未启动，可能与其他脚本冲突了，请先将脚本卸载(agsb del)，再重新安装ArgoSB脚本"
+echo "ArgoSB脚本未启动，可能与其他sing-box或者argo脚本冲突了，请先将脚本卸载(agsb del)，再重新安装ArgoSB脚本"
 exit
 fi
 warpcheck(){
@@ -329,7 +329,7 @@ echo "VPS系统：$op"
 echo "CPU架构：$cpu"
 echo "ArgoSB脚本未安装，开始安装…………" && sleep 3
 else
-echo "ArgoSB脚本未启动，可能与其他脚本冲突了，请先将脚本卸载，再重新安装ArgoSB脚本"
+echo "ArgoSB脚本未启动，可能与其他sing-box或者argo脚本冲突了，请先将脚本卸载，再重新安装ArgoSB脚本"
 exit
 fi
 if [ ! -e nixag/sing-box ]; then
